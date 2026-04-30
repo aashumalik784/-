@@ -1,101 +1,487 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AASHU HINDI OTT - Full Movies</title>
-    <style>
-        body { background-color: #000; color: white; font-family: 'Arial', sans-serif; margin: 0; }
-        .navbar { padding: 15px 5%; background: rgba(0,0,0,0.9); position: fixed; width: 100%; z-index: 100; box-sizing: border-box; }
-        .logo { color: #e50914; font-size: 28px; font-weight: bold; text-decoration: none; }
-        
-        /* Hero Section */
-        .hero { height: 70vh; background: linear-gradient(to top, #000, transparent), url('https://images.slivcdn.com/portrait_thumb/Scam1992_Portrait_Thumb_New.jpg?h=774&w=516&q=high&show_all=true'); background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 5%; }
-        .hero-content h1 { font-size: 3rem; margin: 0; color: #fff; }
-        .play-main { background: #e50914; color: white; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Aashu OTT - आपका प्रीमियम स्ट्रीमिंग प्लेटफॉर्म</title>
+ <meta name="description" content="Aashu OTT पर देखें दुनिया भर की फिल्में, सीरीज, वेब सीरीज और लाइव कंटेंट">
+ <meta name="keywords" content="OTT, स्ट्रीमिंग, फिल्में, सीरीज, वेब सीरीज, Aashu OTT">
+ <meta name="author" content="Aashu OTT">
+ 
+ <!-- Open Graph Meta Tags -->
+ <meta property="og:title" content="Aashu OTT - आपका प्रीमियम स्ट्रीमिंग प्लेटफॉर्म">
+ <meta property="og:description" content="Aashu OTT पर देखें दुनिया भर की फिल्में, सीरीज, वेब सीरीज">
+ <meta property="og:image" content="https://picsum.photos/seed/aashuott/1200/630.jpg">
+ <meta property="og:url" content="https://aashuott.com">
+ <meta property="og:type" content="website">
+ 
+ <!-- Favicon -->
+ <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+ 
+ <!-- Font Awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+ <!-- Styles -->
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
 
-        /* Movie Grid */
-        .section { padding: 20px 5%; }
-        .section-title { font-size: 22px; margin-bottom: 15px; border-left: 5px solid #e50914; padding-left: 10px; }
-        .row { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
-        .row::-webkit-scrollbar { display: none; }
-        
-        .card { min-width: 170px; transition: 0.4s; cursor: pointer; }
-        .card:hover { transform: scale(1.1); }
-        .card img { width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid #333; }
-        .card p { font-size: 14px; text-align: center; margin-top: 8px; font-weight: bold; }
+ :root {
+ --primary-color: #FF6B35;
+ --secondary-color: #F7931E;
+ --dark-bg: #0F0F0F;
+ --card-bg: #1A1A1A;
+ --text-primary: #FFFFFF;
+ --text-secondary: #9CA3AF;
+ --accent: #00B4D8;
+ --success: #10B981;
+ --warning: #F59E0B;
+ --error: #EF4444;
+ }
 
-        /* Video Player Layer */
-        #videoOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; }
-        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 45px; color: white; cursor: pointer; z-index: 2100; }
-        #playerBox { width: 100%; height: 100%; }
-        iframe { width: 100%; height: 100%; border: none; }
-    </style>
-</head>
-<body>
+ body {
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ line-height: 1.6;
+ color: var(--text-primary);
+ background-color: var(--dark-bg);
+ overflow-x: hidden;
+ }
 
-    <div class="navbar">
-        <a href="#" class="logo">AASHU HINDI OTT</a>
-    </div>
+ .loading-spinner {
+ display: inline-block;
+ width: 20px;
+ height: 20px;
+ border: 3px solid rgba(255,255,255,0.3);
+ border-radius: 50%;
+ border-top-color: #fff;
+ animation: spin 1s ease-in-out infinite;
+ }
 
-    <div class="hero">
-        <div class="hero-content">
-            <h1>Scam 1992 (Hindi)</h1>
-            <p>हर्षद मेहता की असली कहानी - अब हिंदी में देखें।</p>
-            <button class="play-main" onclick="playVid('S25v76yvkhE')">▶ अभी चलाएं</button>
-        </div>
-    </div>
+ @keyframes spin {
+ to { transform: rotate(360deg); }
+ }
 
-    <div id="videoOverlay">
-        <span class="close-btn" onclick="stopVid()">&times;</span>
-        <div id="playerBox"></div>
-    </div>
+ .container {
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 0 2rem;
+ }
 
-    <div class="section">
-        <div class="section-title">हिंदी डब्ड सुपरहिट फिल्में (Hindi Dubbed)</div>
-        <div class="row">
-            <div class="card" onclick="playVid('G_5ZitEun88')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMGFkMGVkZGEtMDliOS00MTNmLWEyOTctN2JmYmE1Zjg3YTMzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Jawan">
-                <p>जवान (Jawan)</p>
-            </div>
-            <div class="card" onclick="playVid('Yo38v27C4v4')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjMwMDgyOGQtOTRjMy00OTI4LWIyYjgtY2FjY2FlMzY0NWZlXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="RRR">
-                <p>RRR (हिंदी)</p>
-            </div>
-            <div class="card" onclick="playVid('vqu4z34wENw')">
-                <img src="https://m.media-amazon.com/images/M/MV5BM2NmMDExYTctYzJlYy00MzNmLWE5ZTAtMDhjYWZlYzYyZmJjXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Pathaan">
-                <p>पठान (Pathaan)</p>
-            </div>
-        </div>
-    </div>
+ .btn {
+ display: inline-block;
+ padding: 12px 24px;
+ border-radius: 8px;
+ text-decoration: none;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ border: none;
+ font-size: 16px;
+ }
 
-    <div class="section">
-        <div class="section-title">हिंदी वेब सीरीज (Hindi Web Series)</div>
-        <div class="row">
-            <div class="card" onclick="playVid('j64SctPV_V0')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjRjMDkyMzgtNWU0Mi00MzY0LThiM2YtNWZlYjgzZWRmNjU3XkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_.jpg" alt="Mirzapur">
-                <p>मिर्जापुर</p>
-            </div>
-            <div class="card" onclick="playVid('Exm_Y9Vf0XU')">
-                <img src="https://m.media-amazon.com/images/M/MV5BODZkYTM0YjItNmNjYy00ZTIyLWE2NWQtZzA2YmNlYmI1NmRkXkEyXkFqcGdeQXVyMTAyMTE1NDA1._V1_.jpg" alt="Panchayat">
-                <p>पंचायत</p>
-            </div>
-            <div class="card" onclick="playVid('Z99_L0jG_l8')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjM3NjU0MjEwN15BMl5BanBnXkFtZTgwNzY2Mjc4OTE@._V1_.jpg" alt="Farzi">
-                <p>फर्जी</p>
-            </div>
-        </div>
-    </div>
+ .btn-primary {
+ background: var(--primary-color);
+ color: white;
+ }
 
-    <script>
-        function playVid(id) {
-            document.getElementById('videoOverlay').style.display = 'block';
-            document.getElementById('playerBox').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0" allow="autoplay; fullscreen"></iframe>`;
-        }
-        function stopVid() {
-            document.getElementById('videoOverlay').style.display = 'none';
-            document.getElementById('playerBox').innerHTML = '';
-        }
-    </script>
-</body>
-</html>
+ .btn-primary:hover {
+ background: var(--secondary-color);
+ transform: translateY(-2px);
+ box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+ }
+
+ .btn-secondary {
+ background: var(--card-bg);
+ color: var(--text-primary);
+ }
+
+ .btn-secondary:hover {
+ background: var(--dark-bg);
+ }
+
+ /* Header Styles */
+ header {
+ position: fixed;
+ width: 100%;
+ top: 0;
+ z-index: 1000;
+ background: var(--dark-bg);
+ backdrop-filter: blur(10px);
+ transition: all 0.3s ease;
+ }
+
+ header.scrolled {
+ box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+ }
+
+ .header-content {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1rem 0;
+ }
+
+ .logo {
+ font-size: 1.8rem;
+ font-weight: bold;
+ background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ cursor: pointer;
+ }
+
+ .nav-menu {
+ display: flex;
+ list-style: none;
+ gap: 2rem;
+ }
+
+ .nav-link {
+ color: var(--text-secondary);
+ text-decoration: none;
+ transition: color 0.3s;
+ position: relative;
+ }
+
+ .nav-link:hover {
+ color: var(--text-primary);
+ }
+
+ .nav-link::after {
+ content: '';
+ position: absolute;
+ bottom: -5px;
+ left: 0;
+ width: 0;
+ height: 2px;
+ background: var(--primary-color);
+ transition: width 0.3s;
+ }
+
+ .nav-link:hover::after {
+ width: 100%;
+ }
+
+ .nav-link.active {
+ color: var(--primary-color);
+ }
+
+ .user-menu {
+ display: flex;
+ align-items: center;
+ gap: 1rem;
+ }
+
+ .user-avatar {
+ width: 40px;
+ height: 40px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: bold;
+ cursor: pointer;
+ }
+
+ .user-menu-dropdown {
+ position: absolute;
+ right: 0;
+ top: 100%;
+ background: var(--card-bg);
+ border-radius: 8px;
+ padding: 1rem;
+ min-width: 200px;
+ display: none;
+ }
+
+ .user-menu-dropdown.active {
+ display: block;
+ }
+
+ .user-menu-item {
+ display: block;
+ padding: 10px 15px;
+ color: var(--text-primary);
+ text-decoration: none;
+ transition: background 0.3s;
+ }
+
+ .user-menu-item:hover {
+ background: var(--dark-bg);
+ }
+
+ /* Mobile Menu Toggle */
+ .mobile-menu-toggle {
+ display: none;
+ background: none;
+ border: none;
+ color: var(--text-primary);
+ font-size: 1.5rem;
+ cursor: pointer;
+ }
+
+ /* Hero Section */
+ .hero {
+ margin-top: 80px;
+ padding: 4rem 0;
+ background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+ position: relative;
+ overflow: hidden;
+ }
+
+ .hero-content {
+ text-align: center;
+ z-index: 1;
+ }
+
+ .hero-content h1 {
+ font-size: 3.5rem;
+ margin-bottom: 1rem;
+ background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ }
+
+ .hero-content p {
+ font-size: 1.3rem;
+ color: var(--text-secondary);
+ margin-bottom: 2rem;
+ max-width: 600px;
+ }
+
+ .cta-buttons {
+ display: flex;
+ gap: 1rem;
+ justify-content: center;
+ flex-wrap: wrap;
+ }
+
+ .cta-buttons .btn {
+ font-size: 1.1rem;
+ padding: 15px 30px;
+ }
+
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 3rem;
+ margin-top: 3rem;
+ }
+
+ .stat {
+ text-align: center;
+ }
+
+ .stat-number {
+ font-size: 2rem;
+ font-weight: bold;
+ color: var(--primary-color);
+ }
+
+ .stat-label {
+ color: var(--text-secondary);
+ font-size: 0.9rem;
+ }
+
+ /* Categories Section */
+ .categories-section {
+ padding: 4rem 0;
+ }
+
+ .section-header {
+ text-align: center;
+ margin-bottom: 3rem;
+ }
+
+ .section-header h2 {
+ font-size: 2.5rem;
+ margin-bottom: 1rem;
+ color: var(--text-primary);
+ }
+
+ .section-header p {
+ color: var(--text-secondary);
+ font-size: 1.1rem;
+ }
+
+ .categories-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+ gap: 2rem;
+ }
+
+ .category-card {
+ background: var(--card-bg);
+ border-radius: 12px;
+ overflow: hidden;
+ cursor: pointer;
+ transition: all 0.3s;
+ border: 2px solid transparent;
+ }
+
+ .category-card:hover {
+ transform: translateY(-5px);
+ border-color: var(--primary-color);
+ box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+ }
+
+ .category-image {
+ width: 100%;
+ height: 200px;
+ background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+ position: relative;
+ overflow: hidden;
+ }
+
+ .category-badge {
+ position: absolute;
+ top: 1rem;
+ right: 1rem;
+ background: rgba(0,0,0,0.8);
+ color: white;
+ padding: 0.2rem 0.8rem;
+ border-radius: 20px;
+ font-size: 0.8rem;
+ }
+
+ .category-content {
+ padding: 1.5rem;
+ }
+
+ .category-title {
+ font-size: 1.2rem;
+ margin-bottom: 0.5rem;
+ color: var(--text-primary);
+ }
+
+ .category-description {
+ color: var(--text-secondary);
+ line-height: 1.6;
+ }
+
+ /* Trending Section */
+ .trending-section {
+ padding: 4rem 0;
+ }
+
+ .trending-cards {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+ gap: 1.5rem;
+ margin-top: 3rem;
+ }
+
+ .trending-card {
+ background: var(--card-bg);
+ border-radius: 12px;
+ overflow: hidden;
+ cursor: pointer;
+ transition: all 0.3s;
+ position: relative;
+ }
+
+ .trending-card:hover {
+ transform: scale(1.05);
+ box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+ }
+
+ .trending-card.new-release {
+ border-left: 4px solid var(--success);
+ }
+
+ .trending-card.trending-now {
+ border-left: 4px solid var(--primary-color);
+ }
+
+ .trending-card.popular {
+ border-left: 4px solid var(--warning);
+ }
+
+ .trending-image {
+ width: 100%;
+ height: 250px;
+ background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(247, 147, 30, 0.2));
+ position: relative;
+ overflow: hidden;
+ }
+
+ .trending-overlay {
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+ padding: 1rem;
+ }
+
+ .trending-info {
+ color: white;
+ font-weight: bold;
+ font-size: 0.9rem;
+ }
+
+ .trending-badge {
+ position: absolute;
+ top: 1rem;
+ right: 1rem;
+ background: var(--primary-color);
+ color: white;
+ padding: 0.2rem 0.6rem;
+ border-radius: 15px;
+ font-size: 0.75rem;
+ font-weight: bold;
+ }
+
+ .trending-badge.hot {
+ background: var(--warning);
+ }
+
+ .trending-content {
+ padding: 1rem;
+ }
+
+ .trending-title {
+ font-size: 1.1rem;
+ margin-bottom: 0.3rem;
+ color: var(--text-primary);
+ }
+
+ .trending-meta {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ color: var(--text-secondary);
+ font-size: 0.85rem;
+ }
+
+ /* Search Section */
+ .search-section {
+ background: var(--card-bg);
+ border-radius: 12px;
+ padding: 2rem;
+ margin: 3rem 0;
+ }
+
+ .search-container {
+ position: relative;
+ }
+
+ .search-input {
+ width: 100%;
+ padding: 1rem 3rem 1rem 1.5rem;
+ background: var(--dark-bg);
+ border: 2px solid var(--dark-bg);
+ border-radius: 50px;
+ color: var(--text-primary);
+ font-size: 1rem;
+ transition: all 0.3s;
+ }
+
+ .search-input:focus {
+ outline: none;
+ border-color: var(--primary-color);
+ width: 1
