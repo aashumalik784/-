@@ -1,63 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AASHU OTT - Streaming Now</title>
+    <title>AASHU HINDI OTT</title>
     <style>
         body { background-color: #141414; color: white; font-family: 'Arial', sans-serif; margin: 0; overflow-x: hidden; }
-        .navbar { padding: 15px 4%; background: rgba(0,0,0,0.8); position: fixed; width: 100%; z-index: 100; display: flex; align-items: center; }
+        .navbar { padding: 15px 4%; background: rgba(0,0,0,0.9); position: fixed; width: 100%; z-index: 100; display: flex; align-items: center; box-sizing: border-box; }
         .logo { color: #e50914; font-size: 28px; font-weight: bold; text-decoration: none; letter-spacing: 1px; }
         
-        .hero { height: 80vh; background: linear-gradient(to top, #141414, transparent), url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 5%; }
-        .hero-content { max-width: 600px; }
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero { height: 75vh; background: linear-gradient(to top, #141414, transparent), url('https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 5%; }
+        .hero-content { max-width: 650px; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 10px; color: #fff; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 20px; color: #ccc; }
         
-        .play-btn { background: white; color: black; border: none; padding: 12px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
-        .play-btn:hover { background: rgba(255,255,255,0.8); }
+        .play-btn { background: #e50914; color: white; border: none; padding: 12px 35px; font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .play-btn:hover { background: #b20710; transform: scale(1.05); }
 
-        /* Video Popup Styling */
+        .movie-section { padding: 20px 5%; }
+        .section-title { font-size: 1.5rem; margin-bottom: 10px; color: #fff; border-left: 4px solid #e50914; padding-left: 10px; }
+        .movie-grid { display: flex; gap: 15px; overflow-x: auto; padding: 15px 0; scrollbar-width: none; }
+        .movie-grid::-webkit-scrollbar { display: none; }
+        
+        .movie-card { min-width: 160px; transition: 0.4s; cursor: pointer; border-radius: 6px; overflow: hidden; position: relative; }
+        .movie-card:hover { transform: scale(1.1); z-index: 10; }
+        .movie-card img { width: 100%; height: 230px; object-fit: cover; }
+        .movie-card span { display: block; padding: 5px; font-size: 14px; text-align: center; background: #222; }
+
+        /* Video Player Modal */
         #videoPlayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
         .close-player { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; }
-        iframe { width: 80%; height: 70%; border: none; border-radius: 10px; box-shadow: 0px 0px 30px rgba(229, 9, 20, 0.5); }
-
-        .movie-section { padding: 3rem 5%; }
-        .movie-grid { display: flex; gap: 15px; overflow-x: auto; padding: 20px 0; }
-        .movie-card { min-width: 200px; transition: 0.4s; cursor: pointer; border-radius: 8px; overflow: hidden; }
-        .movie-card:hover { transform: scale(1.1); z-index: 5; }
-        .movie-card img { width: 100%; height: 280px; object-fit: cover; }
+        iframe { width: 90%; height: 60%; border: 3px solid #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <a href="#" class="logo">AASHU OTT</a>
+        <a href="#" class="logo">AASHU HINDI OTT</a>
     </div>
 
     <div class="hero">
         <div class="hero-content">
-            <h1>Action Blockbuster</h1>
-            <p>Experience the high-level world of Aashu Malik Creations. Watch the latest content now.</p>
-            <button class="play-btn" onclick="openPlayer('dQw4w9WgXcQ')">▶ Play Now</button>
+            <h1>ब्लॉकबस्टर हिंदी मूवीज</h1>
+            <p>अब देखिए अपनी पसंदीदा हिंदी फिल्में और वेब सीरीज कहीं भी, कभी भी। सिर्फ आशु मलिक क्रिएटिव्स पर।</p>
+            <button class="play-btn" onclick="openPlayer('G_5ZitEun88')">▶ अभी देखें</button>
         </div>
     </div>
 
     <div id="videoPlayer">
         <span class="close-player" onclick="closePlayer()">&times;</span>
-        <div id="playerFrame"></div>
+        <div id="playerFrame" style="width: 100%; display: flex; justify-content: center;"></div>
     </div>
 
     <div class="movie-section">
-        <h3>Aashu Malik Creations - Trending</h3>
+        <div class="section-title">लेटेस्ट हिंदी मूवीज (Latest Movies)</div>
         <div class="movie-grid">
-            <div class="movie-card" onclick="openPlayer('L_LUpnjLpGs')">
-                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400" alt="Movie">
+            <div class="movie-card" onclick="openPlayer('p2fIidVstX8')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMGFkMGVkZGEtMDliOS00MTNmLWEyOTctN2JmYmE1Zjg3YTMzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Movie">
+                <span>एक्शन थ्रिलर</span>
             </div>
-            <div class="movie-card" onclick="openPlayer('9bZkp7q19f0')">
-                <img src="https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=400" alt="Movie">
+            <div class="movie-card" onclick="openPlayer('Yo38v27C4v4')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjMwMDgyOGQtOTRjMy00OTI4LWIyYjgtY2FjY2FlMzY0NWZlXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="Movie">
+                <span>ड्रामा मूवी</span>
             </div>
-            <div class="movie-card" onclick="openPlayer('tgbNymZ7vqY')">
-                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400" alt="Movie">
+            <div class="movie-card" onclick="openPlayer('M25ZzV6H_V0')">
+                <img src="https://m.media-amazon.com/images/M/MV5BZjY0ZmQ1Y2UtNzU1MS00YjkzLTk1OGEtYjQzMWVjMjVjZDJiXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="Movie">
+                <span>हॉरर हिंदी</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-section">
+        <div class="section-title">हिंदी वेब सीरीज (Hindi Web Series)</div>
+        <div class="movie-grid">
+            <div class="movie-card" onclick="openPlayer('j64SctPV_V0')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjRjMDkyMzgtNWU0Mi00MzY0LThiM2YtNWZlYjgzZWRmNjU3XkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_.jpg" alt="Series">
+                <span>क्राइम थ्रिलर</span>
+            </div>
+            <div class="movie-card" onclick="openPlayer('Exm_Y9Vf0XU')">
+                <img src="https://m.media-amazon.com/images/M/MV5BNjgxZTMxNmQtZGFkZS00NDUyLTllMzYtOTE0ZjdlMjM1ZWU0XkEyXkFqcGdeQXVyMTAyMTE1NDA1._V1_.jpg" alt="Series">
+                <span>कॉमेडी सीरीज</span>
+            </div>
+            <div class="movie-card" onclick="openPlayer('Z99_L0jG_l8')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjM3NjU0MjEwN15BMl5BanBnXkFtZTgwNzY2Mjc4OTE@._V1_.jpg" alt="Series">
+                <span>सस्पेंस</span>
             </div>
         </div>
     </div>
