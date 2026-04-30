@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AASHU HINDI OTT</title>
+    <title>AASHU HINDI OTT - Full Movies</title>
     <style>
-        body { background-color: #141414; color: white; font-family: 'Arial', sans-serif; margin: 0; overflow-x: hidden; }
-        .navbar { padding: 15px 4%; background: rgba(0,0,0,0.9); position: fixed; width: 100%; z-index: 100; display: flex; align-items: center; box-sizing: border-box; }
-        .logo { color: #e50914; font-size: 28px; font-weight: bold; text-decoration: none; letter-spacing: 1px; }
+        body { background-color: #000; color: white; font-family: 'Arial', sans-serif; margin: 0; }
+        .navbar { padding: 15px 5%; background: rgba(0,0,0,0.9); position: fixed; width: 100%; z-index: 100; box-sizing: border-box; }
+        .logo { color: #e50914; font-size: 28px; font-weight: bold; text-decoration: none; }
         
-        .hero { height: 75vh; background: linear-gradient(to top, #141414, transparent), url('https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 5%; }
-        .hero-content { max-width: 650px; }
-        .hero-content h1 { font-size: 3rem; margin-bottom: 10px; color: #fff; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 20px; color: #ccc; }
-        
-        .play-btn { background: #e50914; color: white; border: none; padding: 12px 35px; font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .play-btn:hover { background: #b20710; transform: scale(1.05); }
+        /* Hero Section */
+        .hero { height: 70vh; background: linear-gradient(to top, #000, transparent), url('https://images.slivcdn.com/portrait_thumb/Scam1992_Portrait_Thumb_New.jpg?h=774&w=516&q=high&show_all=true'); background-size: cover; background-position: center; display: flex; align-items: center; padding: 0 5%; }
+        .hero-content h1 { font-size: 3rem; margin: 0; color: #fff; }
+        .play-main { background: #e50914; color: white; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 20px; }
 
-        .movie-section { padding: 20px 5%; }
-        .section-title { font-size: 1.5rem; margin-bottom: 10px; color: #fff; border-left: 4px solid #e50914; padding-left: 10px; }
-        .movie-grid { display: flex; gap: 15px; overflow-x: auto; padding: 15px 0; scrollbar-width: none; }
-        .movie-grid::-webkit-scrollbar { display: none; }
+        /* Movie Grid */
+        .section { padding: 20px 5%; }
+        .section-title { font-size: 22px; margin-bottom: 15px; border-left: 5px solid #e50914; padding-left: 10px; }
+        .row { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
+        .row::-webkit-scrollbar { display: none; }
         
-        .movie-card { min-width: 160px; transition: 0.4s; cursor: pointer; border-radius: 6px; overflow: hidden; position: relative; }
-        .movie-card:hover { transform: scale(1.1); z-index: 10; }
-        .movie-card img { width: 100%; height: 230px; object-fit: cover; }
-        .movie-card span { display: block; padding: 5px; font-size: 14px; text-align: center; background: #222; }
+        .card { min-width: 170px; transition: 0.4s; cursor: pointer; }
+        .card:hover { transform: scale(1.1); }
+        .card img { width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .card p { font-size: 14px; text-align: center; margin-top: 8px; font-weight: bold; }
 
-        /* Video Player Modal */
-        #videoPlayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
-        .close-player { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; }
-        iframe { width: 90%; height: 60%; border: 3px solid #333; border-radius: 10px; }
+        /* Video Player Layer */
+        #videoOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; }
+        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 45px; color: white; cursor: pointer; z-index: 2100; }
+        #playerBox { width: 100%; height: 100%; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
@@ -41,61 +40,61 @@
 
     <div class="hero">
         <div class="hero-content">
-            <h1>ब्लॉकबस्टर हिंदी मूवीज</h1>
-            <p>अब देखिए अपनी पसंदीदा हिंदी फिल्में और वेब सीरीज कहीं भी, कभी भी। सिर्फ आशु मलिक क्रिएटिव्स पर।</p>
-            <button class="play-btn" onclick="openPlayer('G_5ZitEun88')">▶ अभी देखें</button>
+            <h1>Scam 1992 (Hindi)</h1>
+            <p>हर्षद मेहता की असली कहानी - अब हिंदी में देखें।</p>
+            <button class="play-main" onclick="playVid('S25v76yvkhE')">▶ अभी चलाएं</button>
         </div>
     </div>
 
-    <div id="videoPlayer">
-        <span class="close-player" onclick="closePlayer()">&times;</span>
-        <div id="playerFrame" style="width: 100%; display: flex; justify-content: center;"></div>
+    <div id="videoOverlay">
+        <span class="close-btn" onclick="stopVid()">&times;</span>
+        <div id="playerBox"></div>
     </div>
 
-    <div class="movie-section">
-        <div class="section-title">लेटेस्ट हिंदी मूवीज (Latest Movies)</div>
-        <div class="movie-grid">
-            <div class="movie-card" onclick="openPlayer('p2fIidVstX8')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMGFkMGVkZGEtMDliOS00MTNmLWEyOTctN2JmYmE1Zjg3YTMzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Movie">
-                <span>एक्शन थ्रिलर</span>
+    <div class="section">
+        <div class="section-title">हिंदी डब्ड सुपरहिट फिल्में (Hindi Dubbed)</div>
+        <div class="row">
+            <div class="card" onclick="playVid('G_5ZitEun88')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMGFkMGVkZGEtMDliOS00MTNmLWEyOTctN2JmYmE1Zjg3YTMzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Jawan">
+                <p>जवान (Jawan)</p>
             </div>
-            <div class="movie-card" onclick="openPlayer('Yo38v27C4v4')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjMwMDgyOGQtOTRjMy00OTI4LWIyYjgtY2FjY2FlMzY0NWZlXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="Movie">
-                <span>ड्रामा मूवी</span>
+            <div class="card" onclick="playVid('Yo38v27C4v4')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjMwMDgyOGQtOTRjMy00OTI4LWIyYjgtY2FjY2FlMzY0NWZlXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="RRR">
+                <p>RRR (हिंदी)</p>
             </div>
-            <div class="movie-card" onclick="openPlayer('M25ZzV6H_V0')">
-                <img src="https://m.media-amazon.com/images/M/MV5BZjY0ZmQ1Y2UtNzU1MS00YjkzLTk1OGEtYjQzMWVjMjVjZDJiXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg" alt="Movie">
-                <span>हॉरर हिंदी</span>
+            <div class="card" onclick="playVid('vqu4z34wENw')">
+                <img src="https://m.media-amazon.com/images/M/MV5BM2NmMDExYTctYzJlYy00MzNmLWE5ZTAtMDhjYWZlYzYyZmJjXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Pathaan">
+                <p>पठान (Pathaan)</p>
             </div>
         </div>
     </div>
 
-    <div class="movie-section">
+    <div class="section">
         <div class="section-title">हिंदी वेब सीरीज (Hindi Web Series)</div>
-        <div class="movie-grid">
-            <div class="movie-card" onclick="openPlayer('j64SctPV_V0')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjRjMDkyMzgtNWU0Mi00MzY0LThiM2YtNWZlYjgzZWRmNjU3XkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_.jpg" alt="Series">
-                <span>क्राइम थ्रिलर</span>
+        <div class="row">
+            <div class="card" onclick="playVid('j64SctPV_V0')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjRjMDkyMzgtNWU0Mi00MzY0LThiM2YtNWZlYjgzZWRmNjU3XkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_.jpg" alt="Mirzapur">
+                <p>मिर्जापुर</p>
             </div>
-            <div class="movie-card" onclick="openPlayer('Exm_Y9Vf0XU')">
-                <img src="https://m.media-amazon.com/images/M/MV5BNjgxZTMxNmQtZGFkZS00NDUyLTllMzYtOTE0ZjdlMjM1ZWU0XkEyXkFqcGdeQXVyMTAyMTE1NDA1._V1_.jpg" alt="Series">
-                <span>कॉमेडी सीरीज</span>
+            <div class="card" onclick="playVid('Exm_Y9Vf0XU')">
+                <img src="https://m.media-amazon.com/images/M/MV5BODZkYTM0YjItNmNjYy00ZTIyLWE2NWQtZzA2YmNlYmI1NmRkXkEyXkFqcGdeQXVyMTAyMTE1NDA1._V1_.jpg" alt="Panchayat">
+                <p>पंचायत</p>
             </div>
-            <div class="movie-card" onclick="openPlayer('Z99_L0jG_l8')">
-                <img src="https://m.media-amazon.com/images/M/MV5BMjM3NjU0MjEwN15BMl5BanBnXkFtZTgwNzY2Mjc4OTE@._V1_.jpg" alt="Series">
-                <span>सस्पेंस</span>
+            <div class="card" onclick="playVid('Z99_L0jG_l8')">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjM3NjU0MjEwN15BMl5BanBnXkFtZTgwNzY2Mjc4OTE@._V1_.jpg" alt="Farzi">
+                <p>फर्जी</p>
             </div>
         </div>
     </div>
 
     <script>
-        function openPlayer(videoId) {
-            document.getElementById('videoPlayer').style.display = 'flex';
-            document.getElementById('playerFrame').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        function playVid(id) {
+            document.getElementById('videoOverlay').style.display = 'block';
+            document.getElementById('playerBox').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0" allow="autoplay; fullscreen"></iframe>`;
         }
-        function closePlayer() {
-            document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('playerFrame').innerHTML = '';
+        function stopVid() {
+            document.getElementById('videoOverlay').style.display = 'none';
+            document.getElementById('playerBox').innerHTML = '';
         }
     </script>
 </body>
